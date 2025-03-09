@@ -20,9 +20,6 @@ class AuthRepository {
 class AuthNotifier extends StateNotifier<Session?> {
   AuthNotifier() : super(null) {
     Supabase.instance.client.auth.onAuthStateChange.listen((event) {
-      if (event.session != null) {
-        print("event:${event.session!.user.email}");
-      }
       state = event.session;
     });
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mood_app/repos/auth_repository.dart';
+import 'package:mood_app/view_models/signup_view_model.dart';
 
 class SignUpScreen extends ConsumerWidget {
   SignUpScreen({super.key});
@@ -66,15 +66,14 @@ class SignUpScreen extends ConsumerWidget {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
+                          FocusScope.of(context).unfocus();
                           ref
-                              .read(gAuthRepositoryProvider)
+                              .read(gSignUpProvider.notifier)
                               .signUp(
                                 emailController.text,
                                 passwordController.text,
+                                context,
                               );
-                          if (context.mounted) {
-                            context.go('/home');
-                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.pinkAccent,
